@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\PostsController;
-use App\Models\Posts;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,4 +20,8 @@ Route::get('/about', function () {
 
 Route::get('/posts', [PostsController::class, 'index']); 
 
-Route::get('posts/{slug}', [PostsController::class, 'show']);
+// Route Model Binding
+// Route::get('posts/{post}', [PostsController::class, 'show']);
+
+// Route Model Binding with Slug
+Route::get('/posts/{post:slug}', [PostsController::class, 'show']);

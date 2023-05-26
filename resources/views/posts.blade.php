@@ -12,7 +12,7 @@
                         <h5 class="card-title">{{ $post->title }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ $post->artist }}</h6>
                         <p class="card-text">{{ $post->excerpt }}</p>
-                        <a href="/posts/{{ $post->id }}" class="btn btn-primary">Go</a>
+                        <a href="/posts/{{ $post->slug }}" class="btn btn-primary">Go</a>
                     </div>
                 </div>
             </div>

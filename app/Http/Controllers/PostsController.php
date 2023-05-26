@@ -15,10 +15,19 @@ class PostsController extends Controller
         ]);
     }
 
-    public function show($slug) {
+    // Slug is the parameter
+    // public function show($slug) {
+    //     return view("post", [
+    //         "title" => "Trial Blog | " . Posts::where("slug", $slug)->first()->title,
+    //         "post" => Posts::where("slug", $slug)->first()
+    //     ]);
+    // }
+
+    // Using Route Model Binding
+    public function show(Posts $post) {
         return view("post", [
-            "title" => "Trial Blog | " . Posts::find($slug)["title"],
-            "post" => Posts::find($slug)
+            "title" => "Trial Blog | " . $post->title,
+            "post" => $post
         ]);
     }
 }
