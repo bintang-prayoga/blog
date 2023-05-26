@@ -20,7 +20,8 @@
                     href="/about">About</a>
                 <a class="nav-link {{ $title === 'Trial Blog | Posts' ? 'active' : '' }}" aria-current="page"
                     href="/posts">Posts</a>
-
+                <a class="nav-link {{ $title === 'Trial Blog | Categories' ? 'active' : '' }}" aria-current="page"
+                    href="/categories">Categories</a>
             </div>
         </div>
     </div>
