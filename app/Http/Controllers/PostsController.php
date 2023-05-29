@@ -11,7 +11,7 @@ class PostsController extends Controller
     {
         return view('posts', [
             "title" => "Trial Blog | Posts",
-            "posts" => Posts::latest()->get()
+            "posts" => Posts::with(['category', 'user'])->latest()->get()
         ]);
     }
 

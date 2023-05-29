@@ -12,7 +12,7 @@ class AuthorController extends Controller
     {
         return view('author', [
             'title' => "Post by Author: $author->name",
-            'posts' => $author->posts,
+            'posts' => $author->posts->load('category', 'user'),
             'author' => $author->name
         ]);
     }
