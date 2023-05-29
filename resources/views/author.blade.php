@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <h1>Artist: {{ $artist }}</h1>
+    <h1>Author: {{ $author }}</h1>
 
     <div class="row">
         @foreach ($posts as $post)

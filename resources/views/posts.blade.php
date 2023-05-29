@@ -10,7 +10,7 @@
                     <img src="{{ $post->image }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ $post->title }}</h5>
-                        <a href="/artists/{{ $post->user->name }}">
+                        <a href="/authors/{{ $post->user->username }}">
                             <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name }}</h6>
                         </a>
                         <p class="card-text">{{ $post->excerpt }}</p>

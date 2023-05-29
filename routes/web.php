@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostsController;
-use App\Models\Category;
-use App\Models\User;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,26 +29,6 @@ Route::get('/posts', [PostsController::class, 'index']);
 
 // Route Model Binding with Slug
 Route::get('/posts/{post:slug}', [PostsController::class, 'show']);
-
-Route::get('/categories', function() {
-    return view('categories', [
-        'title' => 'Trial Blog | Categories',
-        'categories' => Category::all()
-    ]);
-});
-
-Route::get('/categories/{category:slug}', function(Category $category) {
-    return view('category', [
-        'title' => "Post by Category: $category->name",
-        'posts' => $category->posts,
-        'category' => $category->name
-    ]);
-});
-
-Route::get('/artists/{user:name}', function(User $user) {
-    return view('artist', [
-        'title' => "Post by Artist: $user->name",
-        'posts' => $user->posts,
-        'artist' => $user->name
-    ]);
-});
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
+Route::get('/authors/{author:username}', [AuthorController::class, 'show']);
