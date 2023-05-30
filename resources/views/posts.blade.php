@@ -1,7 +1,19 @@
 @extends('layouts.main')
 
 @section('container')
-    <h1>{{ $title }}</h1>
+    <h1 class="text-center">{{ $header }}</h1>
+
+    <div class="row justify-content-center my-4">
+        <div class="col-md-6">
+            <form action="/posts">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search..." name="search"
+                        value="{{ request('search') }}">
+                    <input type="submit" class="btn btn-outline-primary" id="button-addon2" />
+                </div>
+            </form>
+        </div>
+    </div>
 
     @if ($posts->count())
         <div class="card mb-3">
@@ -26,33 +38,33 @@
 
             </div>
         </div>
+
+        <div class="container">
+            <div class="row">
+                @foreach ($posts->skip(1) as $post)
+                    <div class="col-md-4 my-3">
+                        <div class="card" style="width: 18rem;">
+                            <a href="/categories/{{ $post->category->slug }}">
+                                <p class="position-absolute rounded-end text-white bg-dark px-3 py-2">
+                                    {{ $post->category->name }}
+                                </p>
+                            </a>
+                            <img src="https://source.unsplash.com/600x600?{{ $post->category->name }}" class="card-img-top"
+                                alt="{{ $post->category->name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $post->title }}</h5>
+                                <a href="/authors/{{ $post->user->username }}">
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name }}</h6>
+                                </a>
+                                <p class="card-text">{{ $post->excerpt }}</p>
+                                <a href="/posts/{{ $post->slug }}" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     @else
         <p class="text-center fs-4">No post found.</p>
     @endif
-
-    <div class="container">
-        <div class="row">
-            @foreach ($posts->skip(1) as $post)
-                <div class="col-md-4 my-3">
-                    <div class="card" style="width: 18rem;">
-                        <a href="/categories/{{ $post->category->slug }}">
-                            <p class="position-absolute rounded-end text-white bg-dark px-3 py-2">
-                                {{ $post->category->name }}
-                            </p>
-                        </a>
-                        <img src="https://source.unsplash.com/600x600?{{ $post->category->name }}" class="card-img-top"
-                            alt="{{ $post->category->name }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $post->title }}</h5>
-                            <a href="/authors/{{ $post->user->username }}">
-                                <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name }}</h6>
-                            </a>
-                            <p class="card-text">{{ $post->excerpt }}</p>
-                            <a href="/posts/{{ $post->slug }}" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
 @endsection

@@ -9,9 +9,13 @@ class PostsController extends Controller
 {
     public function index()
     {
+
+        $posts = Posts::latest()->filter(request(['search']));
+
         return view('posts', [
             "title" => "Trial Blog | Posts",
-            "posts" => Posts::latest()->get()
+            "header" => "All Posts",
+            "posts" => $posts->get()
         ]);
     }
 
@@ -27,6 +31,7 @@ class PostsController extends Controller
     public function show(Posts $post) {
         return view("post", [
             "title" => "Trial Blog | " . $post->title,
+            "header" => "Trial Blog",
             "post" => $post
         ]);
     }
