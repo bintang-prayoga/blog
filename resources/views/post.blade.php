@@ -1,16 +1,30 @@
 @extends('layouts.main')
 
 @section('container')
-    <article>
-        <h1>{{ $post->title }} - {{ $post->artist }}</h1>
-        <a href="/authors/{{ $post->user->username }}">
-            <h5>Author: {{ $post->user->name }}</h5>
-        </a>
-        <a href="/categories/{{ $post->category->slug }}">
-            <h6>Genre: {{ $post->category->name }}</h6>
-        </a>
-        <img src="{{ $post->image }}" alt="{{ $post->title }}" class="img-fluid" width="250" height="250">
-        {!! $post->body !!}
-        <a href="/posts">Back to Posts</a>
-    </article>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+
+                <h2>{{ $post->title }} - {{ $post->artist }}</h2>
+                <p>
+                    By:
+                    <a class="text-decoration-none" href="/authors/{{ $post->user->username }}">
+                        {{ $post->user->name }}
+                    </a>
+                    in
+                    <a class="text-decoration-none" href="/categories/{{ $post->category->slug }}">
+                        {{ $post->category->name }}
+                    </a>
+                </p>
+                <img src="https://source.unsplash.com/800x250/?{{ $post->category->name }}" alt="{{ $post->title }}"
+                    class="img-fluid" width="800" height="250">
+                <article class="my-3 fw-semibold">
+                    {!! $post->body !!}
+                </article>
+                <div class="text-center">
+                    <a href="/posts" class="btn btn-primary">Back To Posts</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -1,23 +1,58 @@
 @extends('layouts.main')
 
 @section('container')
-    <h1>Posts</h1>
+    <h1>{{ $title }}</h1>
 
-    <div class="row">
-        @foreach ($posts as $post)
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ $post->image }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $post->title }}</h5>
-                        <a href="/authors/{{ $post->user->username }}">
-                            <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name }}</h6>
+    @if ($posts->count())
+        <div class="card mb-3">
+            <img src="https://source.unsplash.com/1200x400/?{{ $posts[0]->category->name }}" class="card-img-top"
+                alt="{{ $posts[0]->category->name }}">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ $posts[0]->title }}</h3>
+                <p class="card-text">
+                    <small class="text-muted">
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            By:
+                            <a href="/authors/{{ $posts[0]->user->username }}">
+                                {{ $posts[0]->user->name }}
+                            </a>
+                            {{ $posts[0]->created_at->diffForHumans() }}
+                        </h6>
+                    </small>
+                </p>
+                <p class="card-text">{{ $posts[0]->excerpt }}.</p>
+
+                <a href="/posts/{{ $posts[0]->slug }}" class="btn btn-primary">Read More</a>
+
+            </div>
+        </div>
+    @else
+        <p class="text-center fs-4">No post found.</p>
+    @endif
+
+    <div class="container">
+        <div class="row">
+            @foreach ($posts->skip(1) as $post)
+                <div class="col-md-4 my-3">
+                    <div class="card" style="width: 18rem;">
+                        <a href="/categories/{{ $post->category->slug }}">
+                            <p class="position-absolute rounded-end text-white bg-dark px-3 py-2">
+                                {{ $post->category->name }}
+                            </p>
                         </a>
-                        <p class="card-text">{{ $post->excerpt }}</p>
-                        <a href="/posts/{{ $post->slug }}" class="btn btn-primary">Go</a>
+                        <img src="https://source.unsplash.com/600x600?{{ $post->category->name }}" class="card-img-top"
+                            alt="{{ $post->category->name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $post->title }}</h5>
+                            <a href="/authors/{{ $post->user->username }}">
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name }}</h6>
+                            </a>
+                            <p class="card-text">{{ $post->excerpt }}</p>
+                            <a href="/posts/{{ $post->slug }}" class="btn btn-primary">Read More</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 @endsection
