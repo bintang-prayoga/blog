@@ -3,19 +3,37 @@
 namespace App\Http\Controllers;
 
 // use Illuminate\Http\Request;
+
+use App\Models\Category;
 use App\Models\Posts;
+use App\Models\User;
 
 class PostsController extends Controller
 {
     public function index()
     {
 
-        $posts = Posts::latest()->filter(request(['search']));
+        $posts = Posts::latest()->filter(request(['search', 'category', 'user']));
+
+        $header = "";
+
+        if(request('category')) {
+            $category = Category::firstWhere('slug', request('category'));
+            $header = $category->name . " Category ";
+        } elseif(request('user')) {
+            $user = User::firstWhere('username', request('user'));
+            $header = " All Posts By " . $user->name;
+        } elseif(request('search')) {
+            $search = request('search');
+            $header = "Posts with " .  $search;
+        } else {
+            $header = "All Posts";
+        }
 
         return view('posts', [
             "title" => "Trial Blog | Posts",
-            "header" => "All Posts",
-            "posts" => $posts->get()
+            "header" => $header,
+            "posts" => $posts->paginate(7)->withQueryString()
         ]);
     }
 

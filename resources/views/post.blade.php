@@ -8,11 +8,11 @@
                 <h2>{{ $post->title }} - {{ $post->artist }}</h2>
                 <p>
                     By:
-                    <a class="text-decoration-none" href="/authors/{{ $post->user->username }}">
+                    <a class="text-decoration-none" href="/posts?user={{ $post->user->username }}">
                         {{ $post->user->name }}
                     </a>
                     in
-                    <a class="text-decoration-none" href="/categories/{{ $post->category->slug }}">
+                    <a class="text-decoration-none" href="/posts?category={{ $post->category->slug }}">
                         {{ $post->category->name }}
                     </a>
                 </p>

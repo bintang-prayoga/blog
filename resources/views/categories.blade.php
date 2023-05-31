@@ -11,7 +11,7 @@
                         alt="{{ $category->name }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $category->name }}</h5>
-                        <a href="/categories/{{ $category->slug }}" class="btn btn-primary">Go</a>
+                        <a href="/posts?category={{ $category->slug }}" class="btn btn-primary">Go</a>
                     </div>
                 </div>
             </div>

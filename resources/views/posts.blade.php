@@ -6,6 +6,12 @@
     <div class="row justify-content-center my-4">
         <div class="col-md-6">
             <form action="/posts">
+
+                @if (request('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}" />
+                @elseif(request('user'))
+                    <input type="hidden" name="user" value="{{ request('user') }}" />
+                @endif
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search..." name="search"
                         value="{{ request('search') }}">
@@ -25,7 +31,7 @@
                     <small class="text-muted">
                         <h6 class="card-subtitle mb-2 text-muted">
                             By:
-                            <a href="/authors/{{ $posts[0]->user->username }}">
+                            <a href="/posts?user={{ $posts[0]->user->username }}">
                                 {{ $posts[0]->user->name }}
                             </a>
                             {{ $posts[0]->created_at->diffForHumans() }}
@@ -44,7 +50,7 @@
                 @foreach ($posts->skip(1) as $post)
                     <div class="col-md-4 my-3">
                         <div class="card" style="width: 18rem;">
-                            <a href="/categories/{{ $post->category->slug }}">
+                            <a href="/posts?category={{ $post->category->slug }}">
                                 <p class="position-absolute rounded-end text-white bg-dark px-3 py-2">
                                     {{ $post->category->name }}
                                 </p>
@@ -53,7 +59,7 @@
                                 alt="{{ $post->category->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $post->title }}</h5>
-                                <a href="/authors/{{ $post->user->username }}">
+                                <a href="/posts?user={{ $post->user->username }}">
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $post->user->name }}</h6>
                                 </a>
                                 <p class="card-text">{{ $post->excerpt }}</p>
@@ -67,4 +73,8 @@
     @else
         <p class="text-center fs-4">No post found.</p>
     @endif
+
+    <div class="d-flex justify-content-center">
+        {{ $posts->links() }}
+    </div>
 @endsection
