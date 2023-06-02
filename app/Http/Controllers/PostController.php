@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 // use Illuminate\Http\Request;
 
 use App\Models\Category;
-use App\Models\Posts;
+use App\Models\Post;
 use App\Models\User;
 
-class PostsController extends Controller
+class PostController extends Controller
 {
     public function index()
     {
 
-        $posts = Posts::latest()->filter(request(['search', 'category', 'user']));
+        $posts = Post::latest()->filter(request(['search', 'category', 'user']));
 
         $header = "";
 
@@ -46,7 +46,7 @@ class PostsController extends Controller
     // }
 
     // Using Route Model Binding
-    public function show(Posts $post) {
+    public function show(Post $post) {
         return view("post", [
             "title" => "Trial Blog | " . $post->title,
             "header" => "Trial Blog",

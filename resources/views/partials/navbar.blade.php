@@ -8,22 +8,21 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'Trial Blog | Home' ? 'active' : '' }}" aria-current="page"
-                        href="/">Home
+                    <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'Trial Blog | About' ? 'active' : '' }}" aria-current="page"
+                    <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" aria-current="page"
                         href="/about">About
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'Trial Blog | Posts' ? 'active' : '' }}" aria-current="page"
+                    <a class="nav-link {{ Request::is('posts') ? 'active' : '' }}" aria-current="page"
                         href="/posts">Posts
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $title === 'Trial Blog | Categories' ? 'active' : '' }}" aria-current="page"
+                    <a class="nav-link {{ Request::is('categories') ? 'active' : '' }}" aria-current="page"
                         href="/categories">Categories
                     </a>
                 </li>

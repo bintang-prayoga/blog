@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-class Posts extends Model
+class Post extends Model
 {
     use HasFactory;
 
@@ -38,6 +38,10 @@ class Posts extends Model
         $query->when($filters['user'] ?? false, fn($query, $user) =>
             $query->whereHas('user', fn($query) => $query->where('username', $user))
         );
+    }
 
+    public function getRouteKeyName() 
+    {
+        return 'slug';
     }
 }

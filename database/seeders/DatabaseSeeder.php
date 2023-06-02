@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Posts;
+use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             "slug" => "jpop",
         ]);
 
-        Posts::factory(18)->create();
+        Post::factory(18)->create();
 
         // User::create([
         //     "name" => "My Dead Girlfriend",
