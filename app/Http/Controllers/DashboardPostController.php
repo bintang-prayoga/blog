@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -46,14 +48,29 @@ class DashboardPostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id' => ['required'],
             'category_id' => ['required'],
             'title' => ['required', 'max:255'],
             'artist' => ['required', 'max:255'],
             'slug' => ['required', 'unique:posts'],
-            // 'excerpt' => [''],
             'body' => ['required'],
         ]);
+
+        $validatedData['user_id'] = auth()->user()->id;
+
+        // Method laravel 10 bloug
+        // $validatedData['excerpt'] = Str::excerpt(strip_tags($validatedData['body']), 'excerpt', [
+        //     'radius' => 5,
+        // ]);
+
+        $validatedData['excerpt'] = Str::limit(strip_tags($validatedData['body']), 10);
+
+        if (Post::create($validatedData)) {
+            $request->session()->flash('success', 'Your post has been created');
+            return redirect('/dashboard/posts');
+        } else {
+            $request->session()->flash('error', 'Sum Ting Wong');
+            return redirect('/dashboard/posts');
+        }
     }
 
     /**

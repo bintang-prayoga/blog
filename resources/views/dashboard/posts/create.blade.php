@@ -10,35 +10,72 @@
         <div class="row">
             <div class="mb-3 col">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title">
+                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
+                    value="{{ old('title') }}">
+
+                @error('title')
+                    <div class="invalid-feedback">
+                        <p class="text-danger">
+                            {{ $message }}
+                        </p>
+                    </div>
+                @enderror
             </div>
 
             <div class="mb-3 col">
                 <label for="artist" class="form-label">Artist</label>
-                <input type="text" class="form-control" id="artist" name="artist" required>
+                <input type="text" class="form-control @error('artist') is-invalid @enderror" id="artist"
+                    name="artist" value="{{ old('artist') }}">
+
+                @error('artist')
+                    <div class="invalid-feedback">
+                        <p class="text-danger">
+                            {{ $message }}
+                        </p>
+                    </div>
+                @enderror
             </div>
         </div>
 
         <div class="row">
             <div class="mb-3 col">
                 <label for="slug" class="form-label">Slug</label>
-                <input type="text" class="form-control" id="slug" name="slug" disabled readonly required>
+                <input type="text" class="form-control" id="slug" name="slug" readonly
+                    value="{{ old('slug') }}">
             </div>
 
             <div class="col">
                 <label for="category_id" class="form-label">Category</label>
-                <select class="form-select" aria-label="Default select example" name="category_id" id="category_id"
-                    required>
+                <select class="form-select @error('category_id') is-invalid @enderror" aria-label="Default select example"
+                    name="category_id" id="category_id">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? ' selected' : ' ' }}"
+                            selected>{{ $category->name }}</option>
                     @endforeach
                 </select>
+
+                @error('category_id')
+                    <div class="invalid-feedback">
+                        <p class="text-danger">
+                            {{ $message }}
+                        </p>
+                    </div>
+                @enderror
             </div>
         </div>
 
         <div class="mb-3">
-            <label for="body" class="form-label">Body</label>
-            <input id="body" type="hidden" name="body" required>
+            <div class="row d-flex">
+                <label for="body" class="form-label col @error('body') is-invalid @enderror">Body
+                    <span class="text-danger">
+                        @error('body')
+                            {{ $message }}
+                        @enderror
+                    </span>
+                </label>
+
+            </div>
+            <input id="body" type="hidden" name="body" value="{{ old('body') }}">
             <trix-editor input="body"></trix-editor>
         </div>
 

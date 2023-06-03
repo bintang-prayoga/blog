@@ -1,6 +1,17 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
+    @if (session()->has('success'))
+        <div class="alert alert-success my-3" role="alert">
+            {{ session('success') }}
+
+        </div>
+    @elseif(session()->has('error'))
+        <div class="alert alert-danger my-2" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">My Posts</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
