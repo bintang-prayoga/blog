@@ -94,7 +94,10 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('dashboard.posts.edit', [
+            'post' => $post,
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -106,7 +109,31 @@ class DashboardPostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+
+
+        $rules = [
+            'category_id' => ['required'],
+            'title' => ['required', 'max:255'],
+            'artist' => ['required', 'max:255'],
+            'body' => ['required'],
+        ];
+
+        if($request->slug != $post->slug) {
+            $rules['slug'] = ['required', 'unique:posts'];
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $update_post = Post::where('id', $post->id)
+            ->update($validatedData);
+
+        if ($update_post) {
+            $request->session()->flash('success', 'Your post has been updated');
+            return redirect('/dashboard/posts');
+        } else {
+            $request->session()->flash('error', 'Sum Ting Wong');
+            return redirect('/dashboard/posts');
+        }
     }
 
     /**
@@ -115,9 +142,15 @@ class DashboardPostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post, Request $request)
     {
-        //
+        if (Post::destroy($post->id)) {
+            $request->session()->flash('success', 'Your post has been deleted');
+            return redirect('/dashboard/posts');
+        } else {
+            $request->session()->flash('error', 'Sum Ting Wong');
+            return redirect('/dashboard/posts');
+        }
     }
 
     public function makeSlug(Request $request) {

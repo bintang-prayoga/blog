@@ -12,14 +12,19 @@
                         <span data-feather="arrow-left" class="align-text-bottom"></span>
                         Back To Dashboard
                     </a>
-                    <a class="btn btn-warning" href="#">
+                    <a class="btn btn-warning" href="/dashboard/posts/{{ $post->slug }}/edit">
                         <span data-feather="edit" class="align-text-bottom"></span>
                         Edit
                     </a>
-                    <a class="btn btn-danger" href="#">
-                        <span data-feather="trash" class="align-text-bottom"></span>
-                        Delete
-                    </a>
+                    <form action="/dashboard/posts" method="POST" style="all:unset">
+                        @csrf
+                        @method('delete')
+
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('are you sure?')">
+                            <span data-feather="trash" class="align-text-bottom"></span>
+                            Delete
+                        </button>
+                    </form>
                 </div>
                 <img src="https://source.unsplash.com/800x250/?{{ $post->category->name }}" alt="{{ $post->title }}"
                     class="img-fluid" width="800" height="250">
