@@ -49,6 +49,7 @@ Route::get('/dashboard', function() {
     ]);
 })->middleware('auth');
 
+Route::get('/dashboard/posts/makeSlug', [DashboardPostController::class, 'makeSlug'])->middleware('auth');
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
 
 // Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth')->parameters([

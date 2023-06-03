@@ -10,6 +10,15 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <link href="/css/dashboard.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"] {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,6 +46,12 @@
     </script>
 
     <script src="/js/dashboard.js"></script>
+
+    <script>
+        document.addEventListener("trix-file-accept", event => {
+            event.preventDefault()
+        })
+    </script>
 </body>
 
 </html>
