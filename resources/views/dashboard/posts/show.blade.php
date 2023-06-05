@@ -26,8 +26,13 @@
                         </button>
                     </form>
                 </div>
-                <img src="https://source.unsplash.com/800x250/?{{ $post->category->name }}" alt="{{ $post->title }}"
-                    class="img-fluid" width="800" height="250">
+                @if ($post->image)
+                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid"
+                        width="800" height="250">
+                @else
+                    <img src="https://source.unsplash.com/800x250/?{{ $post->category->name }}" alt="{{ $post->title }}"
+                        class="img-fluid" width="800" height="250">
+                @endif
                 <article class="my-3 fw-semibold">
                     {!! $post->body !!}
                 </article>

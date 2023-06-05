@@ -5,7 +5,7 @@
         <h1 class="h2">Create New Post</h1>
     </div>
 
-    <form action="/dashboard/posts" method="POST">
+    <form action="/dashboard/posts" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="mb-3 col">
@@ -49,8 +49,11 @@
                 <select class="form-select @error('category_id') is-invalid @enderror" aria-label="Default select example"
                     name="category_id" id="category_id">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? ' selected' : ' ' }}"
-                            selected>{{ $category->name }}</option>
+                        @if (old('category_id', $category->category_id) == $category->id)
+                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                        @else
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endif
                     @endforeach
                 </select>
 
@@ -62,6 +65,17 @@
                     </div>
                 @enderror
             </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label @error('image') is-invalid @enderror">Header Image
+                <span class="text-danger">
+                    @error('image')
+                        {{ $message }}
+                    @enderror
+                </span>
+            </label>
+            <input class="form-control" type="file" id="image" name="image" accept=".jpg, .png">
         </div>
 
         <div class="mb-3">

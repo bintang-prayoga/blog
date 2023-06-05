@@ -40,6 +40,12 @@
                                     <i class="bi bi-card-text mx-2"></i>Dashboard
                                 </a>
                             </li>
+                            <hr class="dropdown-divider">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-person-circle mx-2"></i>My Profile
+                                </a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
