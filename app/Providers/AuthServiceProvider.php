@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -21,10 +22,13 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(User $user)
     {
         $this->registerPolicies();
 
-        //
+        // https://laravel.com/docs/8.x/authorization#gates
+        Gate::define('admin', function(User $user) {
+            return $user->is_admin;
+        });
     }
 }
