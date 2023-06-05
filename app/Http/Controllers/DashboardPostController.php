@@ -121,6 +121,7 @@ class DashboardPostController extends Controller
             'category_id' => ['required'],
             'title' => ['required', 'max:255'],
             'artist' => ['required', 'max:255'],
+            'image' => ['image', 'max:1024', 'file' ],
             'body' => ['required'],
         ];
 
@@ -129,6 +130,14 @@ class DashboardPostController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+
+        if($request->file('image')) {
+
+            if($post->image) {
+                unlink(storage_path('app/public/' . $post->image));
+            }
+            $validatedData['image'] = $request->file('image')->store('header-images');
+        }
 
         $update_post = Post::where('id', $post->id)
             ->update($validatedData);
@@ -151,6 +160,9 @@ class DashboardPostController extends Controller
     public function destroy(Post $post, Request $request)
     {
         if (Post::destroy($post->id)) {
+            if($post->image) {
+                unlink(storage_path('app/public/' . $post->image));
+            }
             $request->session()->flash('success', 'Your post has been deleted');
             return redirect('/dashboard/posts');
         } else {

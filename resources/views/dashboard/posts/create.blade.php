@@ -75,7 +75,9 @@
                     @enderror
                 </span>
             </label>
-            <input class="form-control" type="file" id="image" name="image" accept=".jpg, .png">
+            <img class="image-preview image-fluid col-sm-5 text-center" />
+            <input class="form-control" type="file" id="image" name="image" accept=".jpg, .png"
+                onchange="previewImage()">
         </div>
 
         <div class="mb-3">
@@ -102,6 +104,7 @@
     <script>
         const title = document.querySelector('#title');
         const slug = document.querySelector('#slug');
+
 
         title.addEventListener('change', function() {
             fetch('/dashboard/posts/makeSlug?title=' + title.value)
