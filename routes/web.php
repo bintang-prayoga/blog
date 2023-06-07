@@ -53,6 +53,7 @@ Route::get('/dashboard', function() {
 Route::get('/dashboard/posts/makeSlug', [DashboardPostController::class, 'makeSlug'])->middleware('auth');
 Route::resource('/dashboard/posts', DashboardPostController::class);
 
+Route::get('/dashboard/categories/makeSlug', [AdminCategoryController::class, 'makeSlug'])->middleware('admin');
 Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
 
 // Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth')->parameters([

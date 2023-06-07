@@ -40,13 +40,10 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $category->name }}</td>
                         <td class="text-center">
-                            <a href="/dashboard/categories/{{ $category->slug }}" class="badge bg-info">
-                                <span data-feather="eye" class="align-text-bottom"></span>
-                            </a>
                             <a href="/dashboard/categories/{{ $category->slug }}/edit" class="badge bg-warning">
                                 <span data-feather="edit-3" class="align-text-bottom"></span>
                             </a>
-                            <form action="/dashboard/categories/{{ $category->slug }}" method="category" style="all: unset">
+                            <form action="/dashboard/categories/{{ $category->slug }}" method="POST" style="all: unset">
 
                                 @csrf
                                 @method('delete')
